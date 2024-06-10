@@ -1,9 +1,6 @@
 package raft_consensus
 
 import (
-	"encoding/json"
-	"fmt"
-	"io"
 	"log"
 	"net"
 	"os"
@@ -12,14 +9,10 @@ import (
 
 	"github.com/hashicorp/raft"
 	raftboltdb "github.com/hashicorp/raft-boltdb"
-	"github.com/heyyakash/infinitystore/datastore"
+	"github.com/heyyakash/infinitystore/fsmachine"
 )
 
-type FSM struct {
-	Store *datastore.DataStore
-}
-
-func SetupRaft(nodeID string, raftDir string, raftAddr string, fsm *FSM) *raft.Raft {
+func SetupRaft(nodeID string, raftDir string, raftAddr string, fsm *fsmachine.FSM) *raft.Raft {
 	os.MkdirAll(raftDir, os.ModePerm)
 	config := raft.DefaultConfig()
 	config.LocalID = raft.ServerID(nodeID)
@@ -60,40 +53,4 @@ func SetupRaft(nodeID string, raftDir string, raftAddr string, fsm *FSM) *raft.R
 	})
 
 	return r
-}
-
-func (f *FSM) Apply(log *raft.Log) interface{} {
-	var kvstore map[string]string
-	if err := json.Unmarshal(log.Data, &kvstore); err != nil {
-		panic(err)
-	}
-	fmt.Print(kvstore)
-	for key, value := range kvstore {
-		f.Store.SetValue(key, value)
-	}
-	return nil
-}
-
-type snapshotNoop struct{}
-
-func (sn snapshotNoop) Persist(_ raft.SnapshotSink) error { return nil }
-func (sn snapshotNoop) Release()                          {}
-
-func (f *FSM) Snapshot() (raft.FSMSnapshot, error) {
-	// Implement snapshotting logic
-	return snapshotNoop{}, nil
-}
-
-func (f *FSM) Restore(rc io.ReadCloser) error {
-	for key, _ := range f.Store.Store {
-		f.Store.DeleteValue(key)
-	}
-	var kvstore map[string]string
-	if err := json.NewDecoder(rc).Decode(&kvstore); err != nil {
-		panic(err)
-	}
-	for key, value := range kvstore {
-		f.Store.SetValue(key, value)
-	}
-	return rc.Close()
 }

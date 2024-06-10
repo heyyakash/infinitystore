@@ -1,6 +1,7 @@
 package models
 
-type SetRequest struct {
-	Key   string `json:"key"`
-	Value string `json:"value"`
+type Request struct {
+	Action string `json:"action"`
+	Key    string `json:"key"`
+	Value  string `json:"value"`
 }

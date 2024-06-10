@@ -1,5 +1,6 @@
 package models
 
-type GetRequest struct {
-	Key string `json:"key"`
+type GetResponse struct {
+	Key   string `json:"key"`
+	Value string `json:"value"`
 }

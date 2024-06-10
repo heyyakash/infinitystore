@@ -39,3 +39,7 @@ func (d *DataStore) KeyExists(key string) bool {
 	_, exists := d.Store[key]
 	return exists
 }
+
+func (d *DataStore) GetAll() map[string]string {
+	return d.Store
+}
