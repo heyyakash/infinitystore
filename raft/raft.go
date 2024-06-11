@@ -16,6 +16,8 @@ func SetupRaft(nodeID string, raftDir string, raftAddr string, fsm *fsmachine.FS
 	os.MkdirAll(raftDir, os.ModePerm)
 	config := raft.DefaultConfig()
 	config.LocalID = raft.ServerID(nodeID)
+	config.PreVoteDisabled = true
+	config.ElectionTimeout = 1 * time.Second
 
 	address, err := net.ResolveTCPAddr("tcp", raftAddr)
 	if err != nil {

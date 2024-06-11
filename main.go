@@ -124,5 +124,5 @@ func joinNodes(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	helper.ResponseGenerator(w, "Voted added", http.StatusOK)
+	helper.ResponseGenerator(w, "Voter added", http.StatusOK)
 }
