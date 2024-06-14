@@ -3,16 +3,16 @@ InfinityStore is a distributed key-value store built using the [Raft](https://de
 An easier explaination of raft can be found [here](https://yusufs.medium.com/creating-distributed-kv-database-by-implementing-raft-consensus-using-golang-d0884eef2e28)
 
 # Table of Contents
-1. [Running the Application 🚀] (## Running the Application 🚀)
-1. [HTTP API 📡] (## HTTP API)
+1. [Running the Application 🚀](#running)
+1. [HTTP API 📡](#http)
 1.1. Set
 1.2. Get
 1.3. Join
-2. [Dependencies 📦] (Dependencies 📦)
-3. [Configuration ⚙️] (Configuration ⚙️)
-4. [Helper Functions 🛠️] (Helper Functions 🛠️)
+2. [Dependencies 📦](#dependencies)
+3. [Configuration ⚙️](#config)
+4. [Example](#example)
 
-## Running the Application 🚀
+## Running the Application 🚀 <a name="running"><a/>
 To run InfinityStore, follow these steps:
 
 ### Clone the repository:
@@ -33,7 +33,7 @@ go build -o store
 ./infinitystore --node-id=node1 --raft-addr=localhost:8000 --http-addr=:8001
 ```
 
-## HTTP API 📡
+## HTTP API 📡 <a name="http"><a/>
 InfinityStore exposes several HTTP endpoints to interact with the distributed key-value store.
 
 ### Set 📥
@@ -116,7 +116,7 @@ Response:
 500 Internal Server Error: Failed to add voter
 ```
 
-## Dependencies 📦
+## Dependencies 📦 <a name="dependencies"><a/>
 InfinityStore relies on several external packages:
 
 1. github.com/gorilla/mux: Router for handling HTTP requests.
@@ -127,7 +127,7 @@ InfinityStore relies on several external packages:
 6. github.com/heyyakash/infinitystore/models: Data models used in the application.
 7. github.com/heyyakash/infinitystore/raft: Raft consensus setup and management.
 
-## Configuration ⚙️
+## Configuration ⚙️ <a name="config"><a/>
 The application configuration is managed via command-line flags:
 
 ```sh
@@ -146,7 +146,7 @@ func Init() {
 }
 ```
 
-### Example Usage
+### Example Usage <a name="example"><a/>
 For simplicity we'll create 3 instances to imitate 3 nodes on same node.
 1. Create a Leader Node
    ```sh
