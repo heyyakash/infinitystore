@@ -1,6 +1,5 @@
 # InfinityStore Documentation 📚
 InfinityStore is a distributed key-value store built using the [Raft](https://developer.hashicorp.com/consul/docs/architecture/consensus) Consensus algorithm for high availability and consistency. This documentation provides an overview of how to run the application and interact with its API.
-An easier explaination of raft can be found [here](https://yusufs.medium.com/creating-distributed-kv-database-by-implementing-raft-consensus-using-golang-d0884eef2e28)
 
 # Table of Contents
 1. [Running the Application 🚀](#running)
@@ -37,9 +36,9 @@ go build -o store
 InfinityStore exposes several HTTP endpoints to interact with the distributed key-value store.
 
 ### Set 📥
-Endpoint: /set
-Method: POST
-Description: Sets a key-value pair in the store.
+**Endpoint**: ```/set``` <br />
+**Method**: ```POST``` <br />
+**Description**: Sets a key-value pair in the store.
 
 Request Body:
 
@@ -69,12 +68,12 @@ Response:
 ```
 
 ### Get 📤
-Endpoint: /get
-Method: GET
-Description: Retrieves the value for a given key.
+**Endpoint**: ```/get``` <br />
+**Method**: ```GET```<br />
+**Description**: Retrieves the value for a given key.
 
 Query Parameters:
-key: The key to retrieve the value for.
+- key: The key to retrieve the value for.
 Example:
 
 ```sh
@@ -92,14 +91,14 @@ Response:
 ```
 
 ### Join 🤝
-Endpoint: /join
-Method: POST
-Description: Joins a new node to the cluster.
+**Endpoint**: ```/join``` <br />
+**Method**: ```POST``` <br />
+**Description**: Joins a new node to the cluster.
 
 Query Parameters:
+- nodeid: The ID of the node to join.
+- nodeaddr: The address of the node to join.
 
-nodeid: The ID of the node to join.
-nodeaddr: The address of the node to join.
 Example:
 
 ```sh
@@ -134,9 +133,8 @@ The application configuration is managed via command-line flags:
 node-id: Unique identifier for the node (default: "node1").
 raft-addr: Address for the Raft server (default: "localhost:8000").
 http-addr: Address for the HTTP server (default: ":8001").
-These flags are parsed during the initialization phase:
 ```
-
+These flags are parsed during the initialization phase:
 ```go
 func Init() {
     nodeID = flag.String("node-id", "node1", "Node ID")
@@ -160,7 +158,7 @@ For simplicity we'll create 3 instances to imitate 3 nodes on same node.
    ```sh
    ./store --http-addr=:8021 --raft-addr=localhost:8020 --node-id=node-3
    ```
-```Note``` :To gain majority minimum no. of available nodes should be (N+1)/2. So for a basic cluster we are going to have 3 nodes.
+```Note``` :To gain majority minimum no. of available nodes should be cieling of (N+1)/2. So for a basic cluster we are going to have 3 nodes.
 
 4. Join the Follower nodes to the Leader node.
     ```sh
