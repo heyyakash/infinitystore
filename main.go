@@ -70,6 +70,7 @@ func main() {
 	log.Fatal(http.ListenAndServe(*httpAddr, router))
 }
 
+// handler to handle set and delete actions
 func setHandler(w http.ResponseWriter, re *http.Request) {
 	defer re.Body.Close()
 	req, err := io.ReadAll(re.Body)
@@ -92,6 +93,7 @@ func setHandler(w http.ResponseWriter, re *http.Request) {
 	helper.ResponseGenerator(w, "Set Successfull", http.StatusOK)
 }
 
+// handler to handle get operation
 func getHandler(w http.ResponseWriter, r *http.Request) {
 	keys, ok := r.URL.Query()["key"]
 	if !ok || len(keys) == 0 {

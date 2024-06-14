@@ -23,9 +23,7 @@ func (d *DataStore) SetValue(key string, value string) {
 func (d *DataStore) GetValue(key string) string {
 	d.mutex.Lock()
 	defer d.mutex.Unlock()
-
-	val, _ := d.Store[key]
-	return val
+	return d.Store[key]
 }
 
 func (d *DataStore) DeleteValue(key string) {
@@ -41,5 +39,7 @@ func (d *DataStore) KeyExists(key string) bool {
 }
 
 func (d *DataStore) GetAll() map[string]string {
+	d.mutex.Lock()
+	defer d.mutex.Unlock()
 	return d.Store
 }
