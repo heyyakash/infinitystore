@@ -4,13 +4,13 @@ An easier explaination of raft can be found [here](https://yusufs.medium.com/cre
 
 # Table of Contents
 1. [Running the Application 🚀](#running)
-1. [HTTP API 📡](#http)
-1.1. Set
-1.2. Get
-1.3. Join
-2. [Dependencies 📦](#dependencies)
-3. [Configuration ⚙️](#config)
-4. [Example](#example)
+2. [HTTP API 📡](#http) <br/>
+    2.1. Set    <br />
+    2.2. Get <br/>
+    2.3. Join
+3. [Dependencies 📦](#dependencies)
+4. [Configuration ⚙️](#config)
+5. [Example](#example)
 
 ## Running the Application 🚀 <a name="running"><a/>
 To run InfinityStore, follow these steps:
